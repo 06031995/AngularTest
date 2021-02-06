@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+             th, td, p, input, h3 {
+            font:15px 'Segoe UI';
+        }
+        table, th, td {
+            border: solid 1px #ddd;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+        th {
+            font-weight:bold;
+        }
+            </style>
+        <title>Products Grid</title>
+    </head>
+    <body>
+        <header>
+            <h1>Products Grid</h1>
+
+            <p>Here you're sure to find a bargain on some of the finest ascii available to purchase. Be sure to peruse our selection of ascii faces in an exciting range of sizes and prices.</p>
+
+            <p>But first, a word from our sponsors:</p> 
+            <!-- <script>document.write('<img class="ad" src="/ads/?r=' + Math.floor(Math.random()*1000) + '"/>');</script> -->
+        </header>
+
+        <section class="products">
+          <script>
+                var face=[];
+                var chunk =1;
+                fetch('http://localhost:3000/products')
+                    .then(res => res.json())
+                    .then((out) => {
+                        
+                       
+                        for(i=0;i<500;i++){
+                        face.push(out[i]);
+                        }
+                        var col = [];
+        for (var i = 0; i < face.length; i++) {
+            for (var key in face[i]) {
+                if (col.indexOf(key) === -1) {
+                    col.push(key);
+                }
+            }
+        }
+                          // Create a table.
+        var table = document.createElement("table");
+
+// Create table header row using the extracted headers above.
+var tr = table.insertRow(-1);                   // table row.
+
+for (var i = 0; i < col.length; i++) {
+    var th = document.createElement("th");      // table header.
+    th.innerHTML = col[i];
+    tr.appendChild(th);
+}
+
+// add json data to the table as rows.
+for (var i = 0; i < face.length; i++) {
+
+    tr = table.insertRow(-1);
+
+    for (var j = 0; j < col.length; j++) {
+        var tabCell = tr.insertCell(-1);
+        tabCell.innerHTML = face[i][col[j]];
+    }
+}
+
+// Now, add the newly created table with json data, to a container.
+var divShowData = document.getElementById('showData');
+divShowData.innerHTML = "";
+divShowData.appendChild(table);
+
+// document.getElementById('msg').innerHTML = '<br />You can later <a href="https://www.encodedna.com/javascript/dynamically-add-remove-rows-to-html-table-using-javascript-and-save-data.htm" target="_blank" style="color:#1464f4;text-decoration:none;">get all the data from table and save it in a database.</a>';
+
+
+                       
+                }).catch(err => console.error(err));
+               
+                var el_down = document.getElementById("showData");
+
+                function getSortedData(value) {
+                    if(value == 1){
+                        var byId = face.slice(0);
+                         byId.sort(function(a,b){
+                        return a.id -b.id;
+                        });
+                        console.log(byId);
+                        var col = [];
+        for (var i = 0; i < byId.length; i++) {
+            for (var key in byId[i]) {
+                if (col.indexOf(key) === -1) {
+                    col.push(key);
+                }
+            }
+        }
+                          // Create a table.
+        var table = document.createElement("table");
+
+// Create table header row using the extracted headers above.
+var tr = table.insertRow(-1);                   // table row.
+
+for (var i = 0; i < col.length; i++) {
+    var th = document.createElement("th");      // table header.
+    th.innerHTML = col[i];
+    tr.appendChild(th);
+}
+
+// add json data to the table as rows.
+for (var i = 0; i < byId.length; i++) {
+
+    tr = table.insertRow(-1);
+
+    for (var j = 0; j < col.length; j++) {
+        var tabCell = tr.insertCell(-1);
+        tabCell.innerHTML = byId[i][col[j]];
+    }
+}
+
+// Now, add the newly created table with json data, to a container.
+var divShowData = document.getElementById('showData').style.display='block';
+
+divShowData.innerHTML = "";
+divShowData.appendChild(table);
+
+                    }
+                    if(value==2){
+                        var bysize = face.slice(0);
+                        bysize.sort(function(a,b){
+                        return a.size -b.size;
+                        });
+                        console.log(bysize);
+                        var col = [];
+        for (var i = 0; i < bysize.length; i++) {
+            for (var key in bysize[i]) {
+                if (col.indexOf(key) === -1) {
+                    col.push(key);
+                }
+            }
+        }
+                          // Create a table.
+        var table = document.createElement("table");
+
+// Create table header row using the extracted headers above.
+var tr = table.insertRow(-1);                   // table row.
+
+for (var i = 0; i < col.length; i++) {
+    var th = document.createElement("th");      // table header.
+    th.innerHTML = col[i];
+    tr.appendChild(th);
+}
+
+// add json data to the table as rows.
+for (var i = 0; i < bysize.length; i++) {
+
+    tr = table.insertRow(-1);
+
+    for (var j = 0; j < col.length; j++) {
+        var tabCell = tr.insertCell(-1);
+        tabCell.innerHTML = bysize[i][col[j]];
+    }
+}
+
+// Now, add the newly created table with json data, to a container.
+var divShowData = document.getElementById('showData');
+divShowData.innerHTML = "";
+divShowData.appendChild(table);
+                    }
+                    if(value==3){
+                        var byPrice = face.slice(0);
+                        byPrice.sort(function(a,b){
+                        return a.price -b.price;
+                        });
+                        console.log(byPrice);
+                        var col = [];
+        for (var i = 0; i < byPrice.length; i++) {
+            for (var key in byPrice[i]) {
+                if (col.indexOf(key) === -1) {
+                    col.push(key);
+                }
+            }
+        }
+                          // Create a table.
+        var table = document.createElement("table");
+
+// Create table header row using the extracted headers above.
+var tr = table.insertRow(-1);                   // table row.
+
+for (var i = 0; i < col.length; i++) {
+    var th = document.createElement("th");      // table header.
+    th.innerHTML = col[i];
+    tr.appendChild(th);
+}
+
+// add json data to the table as rows.
+for (var i = 0; i < byPrice.length; i++) {
+
+    tr = table.insertRow(-1);
+
+    for (var j = 0; j < col.length; j++) {
+        var tabCell = tr.insertCell(-1);
+        tabCell.innerHTML = byPrice[i][col[j]];
+    }
+}
+
+// Now, add the newly created table with json data, to a container.
+var divShowData = document.getElementById('showData');
+divShowData.innerHTML = "";
+divShowData.appendChild(table);
+                    }
+                
+
+                    
+                }
+              
+                    
+               
+                </script>  
+                
+                
+                <label>Sort</label>
+                    <select id='sort' name='sort' onClick="getSortedData(this.value);">
+                    <option  value="1">By Id</option>
+                    <option value="2">By Size</option>
+                    <option value="3">By Price</option>
+                    </select>
+                
+              
+                <p id='showData'></p>
+                <p id='demo'></p>
+               
+              <!-- <div>
+                  
+               <div id="grid-container" >
+                    <div id="message"></div>
+                    
+                  </div>
+                  </div> -->
+        </section>
+    </body>
+</html>
